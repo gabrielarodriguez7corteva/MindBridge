@@ -1,3 +1,5 @@
+import { saveMood } from './firebase.js';
+
 const ctx = document.getElementById('moodChart').getContext('2d');
 const moodChart = new Chart(ctx, {
   type: 'bar',
@@ -24,3 +26,9 @@ const moodChart = new Chart(ctx, {
     }
   }
 });
+
+// Example: Save a mood when user selects one
+function trackMood(mood) {
+  saveMood(mood); // Send to Firebase
+  alert(`Mood "${mood}" saved!`);
+}
