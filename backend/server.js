@@ -14,16 +14,21 @@ const db = admin.database();
 
 // Test route
 
-app.post('/test-firebase', (req, res) => {
-  const testRef = db.ref('test');
-  testRef.push({
-    message: 'Hello from Render!',
-    timestamp: Date.now()
-  });
-  res.send('Firebase connection successful!');
+
+app.get('/test-firebase', (req, res) => {
+  res.send('Firebase test route is working!');
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
+// Export the app for testing purposes
+module.exports = app;
+// Export the database for use in other modules
+module.exports.db = db;
+// Export the admin instance for use in other modules
+module.exports.admin = admin; 
+
+
+
