@@ -1,0 +1,25 @@
+:root {
+  --primary: #6B5B95;
+  --secondary: #88B0D3;
+  --accent: #82B74B;
+  --background: #F7F7F7;
+  --text: #333333;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+button {
+  min-height: 44px;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}

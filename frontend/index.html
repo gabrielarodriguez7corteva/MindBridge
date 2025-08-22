@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindBridge</title>
+  <link rel="stylesheet" href="styles/style.css"/>
+</head>
+<body>
+  <h1>Welcome to MindBridge</h1>
+  <div id="chatbot">
+    <h2>AI Mental Health Chatbot</h2>
+    <input type="text" id="userInput" placeholder="How are you feeling?" />
+    <button onclick="getResponse()">Send</button>
+    <p id="response"></p>
+  </div>
+
+  <div id="moodTracker">
+    <h2>Mood Tracker</h2>
+    <canvas id="moodChart" width="400" height="200"></canvas>
+  </div>
+
+  <div id="forum">
+    <h2>Peer Support Forum</h2>
+    <textarea placeholder="Share your thoughts..."></textarea>
+    <button>Post</button>
+  </div>
+
+  <div id="crisis">
+    <h2>Crisis Resources</h2>
+    <p>If you need help, call your local emergency hotline.</p>
+    <button onclick="alert('Take a deep breath...')">Panic Button</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="scripts/chatbot.js"></script>
+  <script src="scripts/mood.js"></script>
+</body>
+</html>
