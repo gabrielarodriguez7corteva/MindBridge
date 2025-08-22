@@ -18,6 +18,12 @@
   <div id="moodTracker">
     <h2>Mood Tracker</h2>
     <canvas id="moodChart" width="400" height="200"></canvas>
+    <button onclick="trackMood('Happy')">Happy</button>
+    <button onclick="trackMood('Sad')">Sad</button>
+    <button onclick="trackMood('Anxious')">Anxious</button>
+    <button onclick="trackMood('Calm')">Calm</button>
+    <button onclick="trackMood('Angry')">Angry</button>
+
   </div>
 
   <div id="forum">
@@ -33,7 +39,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="scripts/chatbot.js"></script>
-  <script src="scripts/mood.js"></script>
+  <script src="scripts/chatbot.js"></script> 
+  <!-- Firebase SDKs -->
+<script type="module" src="scripts/firebase.js"></script>
+<script type="module" src="scripts/mood.js"></script>
 </body>
 </html>
