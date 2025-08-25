@@ -6,6 +6,31 @@
   <title>MindBridge</title>
   <link rel="stylesheet" href="styles/style.css"/>
 </head>
+<section id="chat">
+    <h2><i class="fas fa-comments"></i> Chat with our AI Assistant</h2>
+    <div class="chat-window" id="chatWindow">
+        <!-- Example bot message -->
+        <div class="message bot-message">
+            <p>Hello! I'm here to listen. How are you feeling today?</p>
+        </div>
+    </div>
+    
+    <!-- Typing indicator for user feedback -->
+    <div class="typing-indicator" id="typingIndicator" style="display: none;">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="chat-input-area">
+        <!-- Accessibility improvement -->
+        <label for="chatInput" class="sr-only">Your Message:</label>
+        <input type="text" id="chatInput" placeholder="Type your message...">
+        <button id="sendButton"><i class="fas fa-paper-plane"></i> Send</button>
+    </div>
+</section>
+
+
 <body>
   <h1>Welcome to MindBridge</h1>
   <div id="chatbot">
