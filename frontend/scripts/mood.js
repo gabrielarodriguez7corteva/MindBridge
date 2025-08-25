@@ -43,7 +43,7 @@ function trackMood(mood) {
     moodChart.data.datasets[0].data = Object.values(moodCounts);
     moodChart.update();
     saveMood(mood);
-    alert(`Mood "${mood}" saved and chart updated.`);
+    //alert(`Mood "${mood}" saved and chart updated.`);
   }
 }
 

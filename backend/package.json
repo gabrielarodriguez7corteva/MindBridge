@@ -1,7 +1,8 @@
 {
   "dependencies": {
+    "@huggingface/inference": "^4.7.1",
     "express": "^5.1.0",
-    "firebase-admin": "^11.10.1"
+    "firebase-admin": "^11.11.1"
   },
   "scripts": {
     "start": "node server.js"

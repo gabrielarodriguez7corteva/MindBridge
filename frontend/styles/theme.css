@@ -1,0 +1,26 @@
+/* frontend/src/styles/theme.css */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --calm-blue: #5B86E5;
+  --hope-green: #36D1DC;
+  --safe-space: #F5F7FA;
+  
+  --shadow-soft: 0 5px 15px rgba(0,0,0,0.08);
+  --radius-comfort: 12px;
+}
+
+.chat-bubble {
+  background: var(--safe-space);
+  border-radius: var(--radius-comfort);
+  padding: 1rem;
+  animation: fadeIn 0.3s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.emergency-button {
+  background: linear-gradient(45deg, #FF6B6B, #FFE66D);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}

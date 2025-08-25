@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 const app = express();
 app.use(express.json());
 
-const serviceAccount = require('./mindbridge-546bc-firebase-adminsdk-fbsvc-deaab58c95.json');
+const serviceAccount = require('./config/mindbridge-546bc-firebase-adminsdk-fbsvc-deaab58c95.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
