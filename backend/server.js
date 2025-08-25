@@ -1,6 +1,10 @@
+//require('dotenv').config();
+
 const express = require('express');
 const admin = require('firebase-admin');
 const { HfInference } = require('@huggingface/inference');
+const cors = require('cors'); // <--- THIS IS THE LINE YOU NEED TO ADD/FIX
+
 const app = express();
 const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
 app.use(cors());
