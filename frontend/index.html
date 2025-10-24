@@ -24,32 +24,39 @@
 
     <div class="chat-input-area">
         <!-- Accessibility improvement -->
-        <label for="chatInput" class="sr-only">Your Message:</label>
-        <input type="text" id="chatInput" placeholder="Type your message...">
-        <button id="sendButton"><i class="fas fa-paper-plane"></i> Send</button>
+        <div id="chatWindow" style="border:1px solid #ccc; padding:8px; height:300px; overflow:auto;"></div>
+<input id="chatInput" placeholder="Type your message..." />
+<button id="sendButton">Send</button>
     </div>
 </section>
 
 
 <body>
   <h1>Welcome to MindBridge</h1>
+ <div id="chatWindow" style="border:1px solid #ccc; padding:8px; height:300px; overflow-y:auto; margin-bottom: 10px;"></div>
+  
   <div id="chatbot">
     <h2>AI Mental Health Chatbot</h2>
-    <input type="text" id="userInput" placeholder="How are you feeling?" />
-    <button onclick="getResponse()">Send</button>
-    <p id="response"></p>
+    
+    <!-- Changed id to "chatInput" to match the JavaScript -->
+    <input type="text" id="chatInput" placeholder="How are you feeling?" style="width: 300px; padding: 5px;" />
+    
+    <!-- Added id="sendButton" and removed the onclick attribute -->
+    <button id="sendButton">Send Message</button>
   </div>
 
-  <div id="moodTracker">
-    <h2>Mood Tracker</h2>
-    <canvas id="moodChart" width="400" height="200"></canvas>
-    <button onclick="trackMood('Happy')">Happy</button>
-    <button onclick="trackMood('Sad')">Sad</button>
-    <button onclick="trackMood('Anxious')">Anxious</button>
-    <button onclick="trackMood('Calm')">Calm</button>
-    <button onclick="trackMood('Angry')">Angry</button>
-
-  </div>
+   <section id="moodTracker">
+      <h2><i class="fas fa-chart-line"></i> Mood Tracker</h2>
+      <p>See your mood patterns over time. This feature is powered by Firebase to securely save your data.</p>
+      <canvas id="moodChart" width="400" height="200"></canvas>
+      <div class="mood-buttons">
+          <button onclick="trackMood('Happy')">Happy</button>
+          <button onclick="trackMood('Sad')">Sad</button>
+          <button onclick="trackMood('Anxious')">Anxious</button>
+          <button onclick="trackMood('Calm')">Calm</button>
+          <button onclick="trackMood('Angry')">Angry</button>
+      </div>
+    </section>
 
   <div id="forum">
     <h2>Peer Support Forum</h2>
@@ -64,9 +71,11 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="scripts/chatbot.js"></script> 
+  <script src="scripts/chatbot.js"></script>  
+  <script src="scripts/mood.js"></script>  
+   <!--<script src="scripts/chatlistener.js"></script>-->
   <!-- Firebase SDKs -->
 <script type="module" src="scripts/firebase.js"></script>
-<script type="module" src="scripts/mood.js"></script>
+
 </body>
 </html>

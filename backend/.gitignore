@@ -1,7 +1,0 @@
-
-# Firebase credentials
-backend/config/firebase-service-account.json
-
-# Environment variables
-.env
-

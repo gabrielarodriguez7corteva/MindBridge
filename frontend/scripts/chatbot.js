@@ -1,3 +1,4 @@
+// Simple fallback responses
 const responses = {
   anxiety: [
     "I understand you're feeling anxious. Let's try a breathing exercise together.",
@@ -10,7 +11,7 @@ const responses = {
 };
 
 function detectKeywords(input) {
-  input = input.toLowerCase();
+  input = (input || "").toLowerCase();
   if (input.includes("anxious")) return "anxiety";
   if (input.includes("depressed") || input.includes("sad")) return "depression";
   return null;
@@ -24,59 +25,80 @@ function generateResponse(keyword) {
   return "I'm here for you. Tell me more.";
 }
 
-function getResponse() {
-  const input = document.getElementById("userInput").value;
-  const keyword = detectKeywords(input);
-  const reply = generateResponse(keyword);
-  document.getElementById("response").innerText = reply;
+function appendMessage(role, text) {
+  const chatWindow = document.getElementById("chatWindow");
+  const messageDiv = document.createElement("div");
+  
+  // Style messages for better readability
+  const roleLabel = document.createElement("strong");
+  roleLabel.textContent = (role === "user" ? "You: " : "Bot: ");
+  
+  messageDiv.appendChild(roleLabel);
+  messageDiv.appendChild(document.createTextNode(text));
+  
+  messageDiv.style.margin = "6px 0";
+  chatWindow.appendChild(messageDiv);
+  
+  // Auto-scroll to the latest message
+  chatWindow.scrollTop = chatWindow.scrollHeight;
 }
-// backend/routes/chatbot.js - Add actual AI integration
-//const { Configuration, OpenAIApi } = require("openai");
-// or use free alternatives like:
-// backend/routes/chatbot.js
-// backend/routes/chatbot.js - Add actual AI integration
-// backend/routes/chatbot.js
-//const { HfInference } = require('@huggingface/inference');
-//const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
 
-// async function generateSafeResponse(message, context) {
-//   const response = await hf.textGeneration({
-//     model: 'microsoft/DialoGPT-medium',
-//     inputs: message,
-//     parameters: { max_new_tokens: 100 }
-//   });
-
-//   return response.generated_text;
-// }
-// This code listens for the click on the "Send" button
-document.getElementById('sendButton').addEventListener('click', async () => {
-    const inputElement = document.getElementById('chatInput');
-    const userMessage = inputElement.value;
-
-    // Display the user's own message in the chat window
-    // (You'll add this DOM manipulation logic)
-
-    // Now, get the bot's response by calling our function
-    const botReply = await getChatbotResponse(userMessage);
-
-    // Display the bot's reply in the chat window
-    // (You'll add this logic too)
-});
-
-// THIS IS THE KEY FUNCTION
+// FIXED: Function now accepts userMessage as an argument
 async function getChatbotResponse(userMessage) {
-    // It sends the user's message to YOUR server running on localhost:3000
-    const response = await fetch('http://localhost:3000/api/chat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: userMessage }), // Send the message in a JSON object
+  try {
+    // This fetch call will attempt to contact your local server
+    const res = await fetch('http://localhost:8081/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMessage })
     });
+    
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Backend error ${res.status}: ${text}`);
+    }
+    
+    const data = await res.json();
+    if (!data.reply) throw new Error('No reply in response from backend');
+    return data.reply;
 
-    const data = await response.json();
-    return data.reply; // Return the reply from your server
+  } catch (err) {
+    console.error('getChatbotResponse error:', err);
+    // Fallback to simple local responses if the server fails
+    // This now works correctly because userMessage is passed into the function
+    const keyword = detectKeywords(userMessage);
+    return generateResponse(keyword);
+  }
 }
 
+// This block runs after the HTML page content has fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  const sendBtn = document.getElementById('sendButton');
+  const inputEl = document.getElementById('chatInput');
 
+  if (!sendBtn || !inputEl) {
+    console.error('Critical Error: Missing #sendButton or #chatInput elements in the HTML.');
+    return;
+  }
 
+  async function handleSend() {
+    const userMessage = inputEl.value.trim();
+    if (!userMessage) return; // Don't send empty messages
+
+    appendMessage('user', userMessage);
+    inputEl.value = ''; // Clear the input field
+
+    // Get the bot's response and append it
+    const botReply = await getChatbotResponse(userMessage);
+    appendMessage('assistant', botReply);
+  }
+
+  // Event listeners for sending the message
+  sendBtn.addEventListener('click', handleSend);
+  inputEl.addEventListener('keydown', (e) => {
+    // Send message when Enter key is pressed
+    if (e.key === 'Enter') {
+      handleSend();
+    }
+  });
+});
